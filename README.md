@@ -179,22 +179,26 @@ python tests/test_all_modules.py
 ## 🛠️ Technology Stack
 
 ### Core Technologies
+
 - **Python 3.x** - Primary language
 - **Transformers 4.57+** - NLP models
 - **PyTorch 2.9+** - Deep learning backend
 - **TensorFlow 2.20+** - Alternative ML framework
 
 ### Data & Storage
+
 - **Pinecone** - Vector database for semantic search
 - **PostgreSQL** - Relational database
 - **SQLAlchemy 2.0+** - ORM
 
 ### Web & Data Processing
+
 - **BeautifulSoup4** - Web scraping
 - **Pandas** - Data analysis
 - **NumPy** - Numerical computing
 
 ### Development Tools
+
 - **Rich** - CLI formatting
 - **Black** - Code formatting
 - **Flake8** - Linting
@@ -224,18 +228,23 @@ python tests/test_all_modules.py
 ## 🎓 Use Cases
 
 ### 🛡️ Threat Intelligence
+
 Monitor security forums, CVE databases, and emerging threats.
 
 ### 📰 News Monitoring
+
 Track breaking news and detect trending topics across sources.
 
 ### 🔬 Research Intelligence
+
 Aggregate academic papers, patents, and research data.
 
 ### 🏢 Competitive Intelligence
+
 Monitor competitor announcements and market movements.
 
 ### 🌐 Social Media Analysis
+
 Track sentiment, trends, and influential voices.
 
 ---
@@ -243,13 +252,15 @@ Track sentiment, trends, and influential voices.
 ## 🚦 Status
 
 ### Current Status
+
 - ✅ Core modules implemented (12/12)
 - ✅ All tests passing (12/12)
 - ✅ Documentation complete
 - ✅ Demo scripts operational
-- ✅ Code quality: A*
+- ✅ Code quality: A\*
 
 ### Pending (Requires Configuration)
+
 - ⏳ Pinecone API integration
 - ⏳ PostgreSQL production setup
 - ⏳ Gemini LLM integration
@@ -290,6 +301,7 @@ This project is licensed under the Apache License - see the [LICENSE](LICENSE) f
 ## 📞 Support
 
 For questions or issues:
+
 - 📧 Email: rkhan@student.mis.ac.th
 - 📖 Documentation: [docs/](docs/)
 - 🐛 Issues: [GitHub Issues](https://github.com/your-org/transcendence-t1/issues)
@@ -298,7 +310,7 @@ For questions or issues:
 
 ## ⭐ Grade
 
-**A*** - Alpha-Ready Quality
+**A\*** - Alpha-Ready Quality
 
 - ✅ Clean Architecture
 - ✅ Comprehensive Testing
