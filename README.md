@@ -5,7 +5,7 @@
 [![Grade](https://img.shields.io/badge/Grade-A*-brightgreen)]()
 [![Tests](https://img.shields.io/badge/Tests-12%2F12%20Passing-success)]()
 [![Python](https://img.shields.io/badge/Python-3.x-blue)]()
-[![License](https://img.shields.io/badge/License-MIT-yellow)]()
+[![License](https://img.shields.io/badge/License-Apache-yellow)]()
 
 ---
 
