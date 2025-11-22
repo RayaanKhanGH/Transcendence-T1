@@ -290,7 +290,7 @@ This project is licensed under the Apache License - see the [LICENSE](LICENSE) f
 ## 📞 Support
 
 For questions or issues:
-- 📧 Email: support@transcendence-t1.com
+- 📧 Email: rkhan@student.mis.ac.th
 - 📖 Documentation: [docs/](docs/)
 - 🐛 Issues: [GitHub Issues](https://github.com/your-org/transcendence-t1/issues)
 
@@ -298,7 +298,7 @@ For questions or issues:
 
 ## ⭐ Grade
 
-**A*** - Production-Ready Quality
+**A*** - Alpha-Ready Quality
 
 - ✅ Clean Architecture
 - ✅ Comprehensive Testing
@@ -309,4 +309,4 @@ For questions or issues:
 
 **Last Updated:** 2025-11-22T15:52:16+07:00  
 **Version:** 1.0.0  
-**Status:** Production-Ready ✅
+**Status:** Alpha-Ready ✅
