@@ -304,7 +304,7 @@ For questions or issues:
 
 - 📧 Email: rkhan@student.mis.ac.th
 - 📖 Documentation: [docs/](docs/)
-- 🐛 Issues: [GitHub Issues](https://github.com/your-org/transcendence-t1/issues)
+- 🐛 Issues: [GitHub Issues](https://github.com/RayaanKhanGH/Transcendence-T1/issues)
 
 ---
 
