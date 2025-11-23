@@ -1,81 +1,36 @@
-"""Simple test to identify import errors."""
-
+import unittest
 import sys
 import os
+import importlib
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+class TestImports(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # Add parent directory to path for imports
+        sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-print("Testing imports...")
+    def test_imports(self):
+        """Test that all key modules can be imported successfully."""
+        modules_to_test = [
+            ('src.agent_manager', 'AgentManager'),
+            ('src.system_core', 'Core'),
+            ('src.core.analysis.analyzer', 'Analyzer'),
+            ('src.core.embed.embedder', 'Embedder'),
+            ('src.core.ingestion.ingestor', 'Ingestor'),
+            ('src.core.preprocess.preprocessor', 'Preprocessor'),
+            ('src.models.embeddings.pinecone_handler', 'PineconeHandler'),
 
-try:
-    from src.agent_manager import AgentManager
-    print("✓ AgentManager imported")
-except Exception as e:
-    print(f"✗ AgentManager failed: {e}")
+            ('src.axis.filters.content_filter', 'Filter'),
+            ('src.axis.scrapers.osint_scraper', 'Scraper'),
+            ('src.axis.parsers.data_parser', 'Parser'),
+            ('src.storage.cache_manager', 'CacheManager'),
+        ]
 
-try:
-    from src.system_core import Core
-    print("✓ Core imported")
-except Exception as e:
-    print(f"✗ Core failed: {e}")
+        for module_name, class_name in modules_to_test:
+            with self.subTest(module=module_name):
+                try:
+                    module = importlib.import_module(module_name)
+                    self.assertTrue(hasattr(module, class_name), f"{class_name} not found in {module_name}")
+                except ImportError as e:
+                    self.fail(f"Failed to import {module_name}: {e}")
 
-try:
-    from src.core.analysis.analyzer import Analyzer
-    print("✓ Analyzer imported")
-except Exception as e:
-    print(f"✗ Analyzer failed: {e}")
-
-try:
-    from src.core.embed.embedder import Embedder
-    print("✓ Embedder imported")
-except Exception as e:
-    print(f"✗ Embedder failed: {e}")
-
-try:
-    from src.core.ingestion.ingestor import Ingestor
-    print("✓ Ingestor imported")
-except Exception as e:
-    print(f"✗ Ingestor failed: {e}")
-
-try:
-    from src.core.preprocess.preprocessor import Preprocessor
-    print("✓ Preprocessor imported")
-except Exception as e:
-    print(f"✗ Preprocessor failed: {e}")
-
-try:
-    from src.models.embeddings.pinecone_handler import PineconeHandler
-    print("✓ PineconeHandler imported")
-except Exception as e:
-    print(f"✗ PineconeHandler failed: {e}")
-
-try:
-    from src.models.storage.data_storage import Storage
-    print("✓ Storage imported")
-except Exception as e:
-    print(f"✗ Storage failed: {e}")
-
-try:
-    from src.axis.filters.content_filter import Filter
-    print("✓ Filter imported")
-except Exception as e:
-    print(f"✗ Filter failed: {e}")
-
-try:
-    from src.axis.scrapers.osint_scraper import Scraper
-    print("✓ Scraper imported")
-except Exception as e:
-    print(f"✗ Scraper failed: {e}")
-
-try:
-    from src.axis.parsers.data_parser import Parser
-    print("✓ Parser imported")
-except Exception as e:
-    print(f"✗ Parser failed: {e}")
-
-try:
-    from src.storage.cache_manager import CacheManager
-    print("✓ CacheManager imported")
-except Exception as e:
-    print(f"✗ CacheManager failed: {e}")

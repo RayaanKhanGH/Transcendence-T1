@@ -1,5 +1,9 @@
 import logging
 from typing import List, Any, Dict
+try:
+    from sentence_transformers import SentenceTransformer
+except ImportError:
+    SentenceTransformer = None
 
 logger = logging.getLogger(__name__)
 
@@ -8,8 +12,16 @@ class Embedder:
     Handles generation and storage of vector embeddings.
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, model_name: str = "all-MiniLM-L6-v2"):
+        self.model = None
+        if SentenceTransformer:
+            try:
+                self.model = SentenceTransformer(model_name)
+                logger.info(f"Loaded embedding model: {model_name}")
+            except Exception as e:
+                logger.error(f"Failed to load embedding model: {e}")
+        else:
+            logger.warning("sentence-transformers not installed.")
 
     def generate_embeddings(self, texts: List[str]) -> List[List[float]]:
         """
@@ -22,8 +34,17 @@ class Embedder:
             List[List[float]]: List of embedding vectors.
         """
         logger.info(f"Generating embeddings for {len(texts)} texts...")
-        # Placeholder: return random vectors or mock data
-        return [[0.1, 0.2, 0.3] for _ in texts]
+        
+        if not self.model:
+            logger.warning("Embedding model not loaded. Returning mock data.")
+            return [[0.1] * 384 for _ in texts] # Mock 384-dim vectors
+
+        try:
+            embeddings = self.model.encode(texts)
+            return embeddings.tolist()
+        except Exception as e:
+            logger.error(f"Error generating embeddings: {e}")
+            return []
 
     def store_embeddings(self, embeddings: List[List[float]], metadata: List[Dict[str, Any]] = None) -> bool:
         """

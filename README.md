@@ -183,7 +183,6 @@ python tests/test_all_modules.py
 - **Python 3.x** - Primary language
 - **Transformers 4.57+** - NLP models
 - **PyTorch 2.9+** - Deep learning backend
-- **TensorFlow 2.20+** - Alternative ML framework
 
 ### Data & Storage
 
@@ -292,7 +291,7 @@ This project is licensed under the Apache License - see the [LICENSE](LICENSE) f
 ## 🙏 Acknowledgments
 
 - Built with Python, AI, and attention to detail
-- Powered by Transformers, PyTorch, and TensorFlow
+- Powered by Transformers and PyTorch
 - Vector search by Pinecone
 - LLM capabilities by Google Gemini
 
