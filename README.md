@@ -32,6 +32,7 @@ Transcendence T1 is an advanced **cyber intelligence OSINT (Open Source Intellig
 - Python 3.x
 - Virtual environment (recommended)
 - API keys (Pinecone, Gemini) - optional for demo
+- Chrome Browser (for Selenium)
 
 ### Installation
 
@@ -99,10 +100,7 @@ Create a `.env` file in the project root:
 PINECONE_API_KEY=your_pinecone_api_key
 PINECONE_ENV=your_pinecone_environment
 
-# PostgreSQL
-DATABASE_URL=postgresql://user:password@localhost:5432/dbname
-
-# Gemini LLM
+# Gemini LLM (Required for Analysis)
 GEMINI_API_KEY=your_gemini_api_key
 
 # Optional
@@ -164,12 +162,12 @@ python tests/test_all_modules.py
 │                                                              │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
 │  │  Scrapers   │  │   Parsers   │  │   Filters   │        │
-│  │  (OSINT)    │  │ (HTML/JSON) │  │   (Rules)   │        │
+│  │ (Scrapy/Sel)│  │ (HTML/JSON) │  │   (Rules)   │        │
 │  └─────────────┘  └─────────────┘  └─────────────┘        │
 │                                                              │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
-│  │ PostgreSQL  │  │  Pinecone   │  │    Cache    │        │
-│  │ (Metadata)  │  │  (Vectors)  │  │   (Local)   │        │
+│  │  Pinecone   │  │    Cache    │  │   Gemini    │        │
+│  │  (Vectors)  │  │   (Local)   │  │    (LLM)    │        │
 │  └─────────────┘  └─────────────┘  └─────────────┘        │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -187,14 +185,14 @@ python tests/test_all_modules.py
 ### Data & Storage
 
 - **Pinecone** - Vector database for semantic search
-- **PostgreSQL** - Relational database
-- **SQLAlchemy 2.0+** - ORM
+- **SQLite/JSON** - Local metadata storage
 
 ### Web & Data Processing
 
-- **BeautifulSoup4** - Web scraping
+- **Scrapy** - High-performance web scraping
+- **Selenium** - Dynamic content & URL discovery
+- **BeautifulSoup4** - HTML parsing
 - **Pandas** - Data analysis
-- **NumPy** - Numerical computing
 
 ### Development Tools
 
@@ -218,7 +216,7 @@ python tests/test_all_modules.py
 7. **PineconeHandler** - Vector database operations
 8. **Storage** - Data persistence
 9. **Filter** - Content filtering
-10. **Scraper** - Web scraping
+10. **Scraper** - Web scraping (Scrapy + Requests)
 11. **Parser** - Data parsing (HTML/JSON/CSV)
 12. **CacheManager** - Local caching
 
@@ -256,13 +254,13 @@ Track sentiment, trends, and influential voices.
 - ✅ All tests passing (12/12)
 - ✅ Documentation complete
 - ✅ Demo scripts operational
+- ✅ Scrapy & Selenium Integration
+- ✅ Gemini LLM Analysis
 - ✅ Code quality: A\*
 
 ### Pending (Requires Configuration)
 
 - ⏳ Pinecone API integration
-- ⏳ PostgreSQL production setup
-- ⏳ Gemini LLM integration
 - ⏳ FastAPI backend
 - ⏳ Next.js frontend
 
@@ -318,6 +316,6 @@ For questions or issues:
 
 ---
 
-**Last Updated:** 2025-11-22T15:52:16+07:00  
-**Version:** 1.0.0  
+**Last Updated:** 2025-11-24T22:02:00+07:00  
+**Version:** 1.1.0  
 **Status:** Alpha-Ready ✅
