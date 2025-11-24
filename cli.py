@@ -158,6 +158,11 @@ def main():
                 import json
                 from datetime import datetime
                 import os
+                
+                # Generate synthesized executive report
+                console.print("\n[bold cyan]📝 Synthesizing executive report...[/bold cyan]")
+                all_summaries = [f.get("summary", "") for f in findings]
+                executive_narrative = analyzer.generate_executive_report(all_summaries, user_prompt)
 
                 report_id = f"INTEL-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
                 report_filename = f"intelligence_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
@@ -175,8 +180,7 @@ def main():
                     },
                     "executive_summary": {
                         "research_objective": user_prompt,
-                        "overview": f"Analysis of {len(findings)} sources regarding '{user_prompt}'.",
-                        "key_findings": [f.get("summary", "")[:200] + "..." for f in findings]
+                        "intelligence_extraction": executive_narrative
                     },
                     "detailed_findings": findings
                 }
