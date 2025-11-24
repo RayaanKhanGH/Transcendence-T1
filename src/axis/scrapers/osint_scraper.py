@@ -28,7 +28,7 @@ class Scraper:
     
     def scrape_osint_sources(self, sources: List[str]) -> List[Dict[str, Any]]:
         """
-        Scrape generic OSINT sources.
+        Scrape generic OSINT sources using Scrapy as the primary engine.
         
         Args:
             sources: List of source URLs
@@ -36,15 +36,104 @@ class Scraper:
         Returns:
             List of scraped data dictionaries
         """
-        logger.info(f"Scraping {len(sources)} OSINT sources...")
+        logger.info(f"Scraping {len(sources)} OSINT sources using Scrapy...")
         results = []
         
-        for url in sources:
-            result = self._scrape_single_url(url)
-            results.append(result)
-        
+        # 1. Try Scrapy First (Primary)
+        try:
+            scrapy_results = self._run_scrapy_spider(sources)
+            
+            # Map results by URL for easy lookup
+            scrapy_map = {item['url']: item for item in scrapy_results}
+            
+            for url in sources:
+                if url in scrapy_map:
+                    item = scrapy_map[url]
+                    if item.get('status') == 200 and item.get('html'):
+                        results.append({
+                            'url': url,
+                            'html': item['html'],
+                            'status_code': item['status'],
+                            'error': None
+                        })
+                    else:
+                        # Scrapy visited but failed (e.g. 403/404)
+                        logger.warning(f"Scrapy failed for {url} (Status: {item.get('status')})")
+                        results.append({
+                            'url': url,
+                            'html': '',
+                            'status_code': item.get('status', 0),
+                            'error': item.get('error', 'Scrapy failed')
+                        })
+                else:
+                    # Scrapy didn't return this URL (crashed or skipped?)
+                    logger.warning(f"Scrapy missed {url}")
+                    results.append({
+                        'url': url,
+                        'html': '',
+                        'status_code': 0,
+                        'error': 'Scrapy missed URL'
+                    })
+                    
+        except Exception as e:
+            logger.error(f"Critical Scrapy failure: {e}")
+            # Fallback to requests if Scrapy process crashes entirely
+            logger.info("Falling back to requests...")
+            for url in sources:
+                results.append(self._scrape_single_url(url))
+
         return results
-    
+
+    def _run_scrapy_spider(self, urls: List[str]) -> List[Dict[str, Any]]:
+        """
+        Run the standalone Scrapy spider via subprocess.
+        """
+        import subprocess
+        import json
+        import os
+        import sys
+        
+        # Path to the spider script
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        spider_path = os.path.join(current_dir, 'spiders', 'generic_spider.py')
+        output_file = os.path.join(current_dir, 'scrapy_output.json')
+        
+        # Ensure spider directory exists
+        os.makedirs(os.path.dirname(spider_path), exist_ok=True)
+        
+        urls_str = ",".join(urls)
+        
+        try:
+            # Run the spider script
+            # We use a separate process to avoid ReactorNotRestartable errors
+            cmd = [sys.executable, spider_path, urls_str, output_file]
+            logger.info(f"Launching Scrapy subprocess for {len(urls)} URLs")
+            
+            subprocess.run(cmd, check=True, capture_output=True, text=True)
+            
+            # Read results
+            if os.path.exists(output_file):
+                with open(output_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                
+                # Clean up
+                try:
+                    os.remove(output_file)
+                except:
+                    pass
+                    
+                return data
+            else:
+                logger.error("Scrapy output file not found.")
+                return []
+                
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Scrapy subprocess failed: {e.stderr}")
+            return []
+        except Exception as e:
+            logger.error(f"Error running Scrapy spider: {e}")
+            return []
+
     def _scrape_single_url(self, url: str) -> Dict[str, Any]:
         """Scrape a single URL with retry logic."""
         for attempt in range(self.max_retries):
