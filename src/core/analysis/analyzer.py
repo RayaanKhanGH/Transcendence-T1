@@ -35,7 +35,7 @@ class Analyzer:
         else:
             logger.warning("GEMINI_API_KEY not found.")
 
-    def _duckduckgo_search_selenium(self, query: str, num_results: int = 15, time_filter: str = None) -> List[str]:
+    def _duckduckgo_search_selenium(self, query: str, time_filter: str = None) -> List[str]:
         """
         Perform a DuckDuckGo search using Selenium with optional time filtering.
         
@@ -47,6 +47,7 @@ class Analyzer:
         Returns:
             List of URLs from search results
         """
+        num_results = 15
         try:
             from selenium import webdriver
             from selenium.webdriver.common.by import By
@@ -217,7 +218,7 @@ class Analyzer:
         try:
             logger.info(f"Performing DuckDuckGo search with Selenium (Filter: {time_filter})...")
             # Request more results initially to account for validation failures
-            search_results = self._duckduckgo_search_selenium(prompt, num_results=20, time_filter=time_filter)
+            search_results = self._duckduckgo_search_selenium(prompt, time_filter=time_filter)
             
             if not search_results:
                 logger.warning("DuckDuckGo search returned no results, using fallback")
@@ -227,7 +228,7 @@ class Analyzer:
             
             # Validate URLs
             validated_urls = []
-            target_count = 10  # Aim for up to 10 URLs
+            target_count = 15  # Aim for up to 15 URLs
             
             for url in search_results:
                 logger.info(f"Validating: {url}")
