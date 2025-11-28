@@ -228,7 +228,7 @@ class Analyzer:
             
             # Validate URLs
             validated_urls = []
-            target_count = 15  # Aim for up to 15 URLs
+            target_count = 20  # Aim for up to 20 URLs
             
             for url in search_results:
                 logger.info(f"Validating: {url}")
