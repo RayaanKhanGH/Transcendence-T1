@@ -23,11 +23,12 @@ class Analyzer:
 
     def __init__(self):
         self.api_key = os.getenv("GEMINI_API_KEY")
+        self.model_name = os.getenv("MODEL", "gemini-2.0-flash").lower()
         self.client = None
         if self.api_key and genai:
             try:
                 self.client = genai.Client(api_key=self.api_key)
-                logger.info("Gemini client initialized.")
+                logger.info(f"Gemini client initialized with model: {self.model_name}")
             except Exception as e:
                 logger.error(f"Failed to initialize Gemini client: {e}")
         elif not genai:
@@ -263,6 +264,28 @@ class Analyzer:
             "https://example.com/page2"
         ]
 
+    def _generate_with_retry(self, prompt: str, max_retries: int = 3) -> Any:
+        """Helper to generate content with retry logic for 429/503 errors."""
+        for attempt in range(max_retries):
+            try:
+                # Add a small delay/throttle before every request to avoid hitting limits immediately
+                time.sleep(2) 
+                response = self.client.models.generate_content(
+                    model=self.model_name,
+                    contents=prompt
+                )
+                return response
+            except Exception as e:
+                err_str = str(e)
+                # Check for rate limit (429) or overloading (503)
+                if ("429" in err_str or "503" in err_str) and attempt < max_retries - 1:
+                    wait_time = (attempt + 1) * 5  # 5s, 10s, 15s
+                    logger.warning(f"GenAI Error ({err_str[:50]}...). Retrying in {wait_time}s...")
+                    time.sleep(wait_time)
+                else:
+                    raise e
+        return None
+
     def detect_patterns(self, data: Any) -> List[Dict[str, Any]]:
         """
         Detect patterns in the provided data using advanced LLM analysis.
@@ -287,10 +310,7 @@ class Analyzer:
                     "and 'confidence' (0.0-1.0). "
                     f"Data: {str(data)[:10000]}"
                 )
-                response = self.client.models.generate_content(
-                    model="gemini-2.0-flash",
-                    contents=prompt
-                )
+                response = self._generate_with_retry(prompt)
                 # In a real implementation, we would parse the JSON. 
                 # For now, we return the raw text if it's not strict JSON, wrapped in a structure.
                 return [{"pattern": response.text, "confidence": 1.0}]
@@ -340,10 +360,7 @@ class Analyzer:
                     f"Data to Analyze:\n{str(data)[:15000]}"
                 )
                 
-                response = self.client.models.generate_content(
-                    model="gemini-2.0-flash",
-                    contents=prompt
-                )
+                response = self._generate_with_retry(prompt)
                 return response.text
             except Exception as e:
                 logger.error(f"Gemini summarization failed: {e}")
@@ -383,11 +400,9 @@ class Analyzer:
                     f"Source Reports:\n{combined_text[:25000]}"
                 )
                 
-                response = self.client.models.generate_content(
-                    model="gemini-2.0-flash",
-                    contents=prompt_text
-                )
+                response = self._generate_with_retry(prompt_text)
                 return response.text
+
             except Exception as e:
                 logger.error(f"Executive report generation failed: {e}")
                 return f"Error generating executive report: {e}"
