@@ -2,8 +2,7 @@
 
 **Cyber Intelligence OSINT Agent**
 
-[![Grade](https://img.shields.io/badge/Grade-A*-brightgreen)]()
-[![Tests](https://img.shields.io/badge/Tests-12%2F12%20Passing-success)]()
+[![Status](https://img.shields.io/badge/Status-Alpha-red)]()
 [![Python](https://img.shields.io/badge/Python-3.x-blue)]()
 [![License](https://img.shields.io/badge/License-Apache-yellow)]()
 
@@ -15,13 +14,13 @@ Transcendence T1 is an advanced **cyber intelligence OSINT (Open Source Intellig
 
 ### Key Features
 
-- 🤖 **Multi-Agent Orchestration** - Manage multiple intelligence-gathering agents
+- 🤖 **Multi-Agent System** - Manage multiple intelligence-gathering agents (COMING SOON)
 - 🔍 **OSINT Data Collection** - Scrape and collect from public sources
 - 🧹 **Intelligent Preprocessing** - Clean and normalize raw data
 - 🧠 **AI-Powered Embeddings** - Semantic vector generation using Gemini/Transformers
 - 📊 **Pattern Analysis** - Detect anomalies and patterns in intelligence data
-- 💾 **Multi-Tier Storage** - PostgreSQL + Pinecone Vector DB + Local Cache
-- 🔄 **Automated Pipeline** - Ingestion → Preprocessing → Embedding → Analysis → Storage
+- 💾 **Multi-Tier Storage** - Pinecone Vector DB + Local Cache
+- 🔄 **Automated Pipeline** - Ingestion → Preprocessing → Embedding → Analysis
 
 ---
 
@@ -31,31 +30,31 @@ Transcendence T1 is an advanced **cyber intelligence OSINT (Open Source Intellig
 
 - Python 3.x
 - Virtual environment (recommended)
-- API keys (Pinecone, Gemini) - optional for demo
-- Chrome Browser (for Selenium)
+- API keys (Pinecone, Gemini)
+- dependencies
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/transcendence-t1.git
+git clone https://github.com/RayaanKhanGH/Transcendence-T1.git
 cd transcendence-t1
 
 # Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python -m venv .
+source Scripts/activate # on MacOS or Linux: /bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
-### Quick Demo
+### CLI
 
 ```bash
-# Run quick demo (5 seconds)
-python quick_demo.py
+# Run functional CLI (2-3 minutes)
+python cli.py
 
-# Run interactive demo (2-3 minutes)
+# Run demo cli (5 seconds)
 python demo_cli.py
 ```
 
@@ -81,7 +80,7 @@ transcendence/
 │   ├── axis/               # OSINT layer (scrapers, parsers, filters)
 │   ├── core/               # Core processing (analysis, embed, ingestion, preprocess)
 │   ├── models/             # Data models (embeddings, storage)
-│   └── storage/            # Storage layer (cache)
+│   
 ├── tests/                  # Test files
 ├── docs/                   # Documentation
 ├── scripts/                # Utility scripts
@@ -98,13 +97,10 @@ Create a `.env` file in the project root:
 ```bash
 # Pinecone Vector DB
 PINECONE_API_KEY=your_pinecone_api_key
-PINECONE_ENV=your_pinecone_environment
 
 # Gemini LLM (Required for Analysis)
 GEMINI_API_KEY=your_gemini_api_key
 
-# Optional
-LOG_LEVEL=INFO
 ```
 
 ---
@@ -180,26 +176,24 @@ python tests/test_all_modules.py
 
 - **Python 3.x** - Primary language
 - **Transformers 4.57+** - NLP models
+- **google-genai** - LLM models
 - **PyTorch 2.9+** - Deep learning backend
 
 ### Data & Storage
 
 - **Pinecone** - Vector database for semantic search
-- **SQLite/JSON** - Local metadata storage
+- **JSON** - Local metadata storage
 
 ### Web & Data Processing
 
 - **Scrapy** - High-performance web scraping
 - **Selenium** - Dynamic content & URL discovery
-- **BeautifulSoup4** - HTML parsing
-- **Pandas** - Data analysis
+- **BeautifulSoup4** - Advanced HTML parsing
 
 ### Development Tools
 
 - **Rich** - CLI formatting
-- **Black** - Code formatting
-- **Flake8** - Linting
-- **JupyterLab** - Prototyping
+
 
 ---
 
@@ -254,15 +248,11 @@ Track sentiment, trends, and influential voices.
 - ✅ All tests passing (12/12)
 - ✅ Documentation complete
 - ✅ Demo scripts operational
+- ✅ Pinecone Vector DB Integration
 - ✅ Scrapy & Selenium Integration
 - ✅ Gemini LLM Analysis
 - ✅ Code quality: A\*
 
-### Pending (Requires Configuration)
-
-- ⏳ Pinecone API integration
-- ⏳ FastAPI backend
-- ⏳ Next.js frontend
 
 ---
 
@@ -289,9 +279,8 @@ This project is licensed under the Apache License - see the [LICENSE](LICENSE) f
 ## 🙏 Acknowledgments
 
 - Built with Python, AI, and attention to detail
-- Powered by Transformers and PyTorch
+- Powered by Google Gemini
 - Vector search by Pinecone
-- LLM capabilities by Google Gemini
 
 ---
 
@@ -307,7 +296,7 @@ For questions or issues:
 
 ## ⭐ Grade
 
-**A\*** - Alpha-Ready Quality
+**A\*** - Alpha Quality
 
 - ✅ Clean Architecture
 - ✅ Comprehensive Testing
@@ -316,6 +305,6 @@ For questions or issues:
 
 ---
 
-**Last Updated:** 2025-11-24T22:02:00+07:00  
+**Last Updated:** 2025-12-17T10:54:38 (UTC+7)
 **Version:** 1.1.0  
-**Status:** Alpha-Ready ✅
+**Status:** Alpha ✅
