@@ -1,4 +1,6 @@
-docs/*.json
+
+# metadata
+src/meta/*.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
