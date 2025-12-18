@@ -1,0 +1,6 @@
+{
+    "Python": {
+        "spec": "/requirements.txt",
+        "installer": "/installer.req.py"
+    }
+}

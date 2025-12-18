@@ -80,7 +80,7 @@ transcendence/
 │   ├── axis/               # OSINT layer (scrapers, parsers, filters)
 │   ├── core/               # Core processing (analysis, embed, ingestion, preprocess)
 │   ├── models/             # Data models (embeddings, storage)
-│   
+│
 ├── tests/                  # Test files
 ├── docs/                   # Documentation
 ├── scripts/                # Utility scripts
@@ -194,7 +194,6 @@ python tests/test_all_modules.py
 
 - **Rich** - CLI formatting
 
-
 ---
 
 ## 📊 Modules
@@ -251,8 +250,8 @@ Track sentiment, trends, and influential voices.
 - ✅ Pinecone Vector DB Integration
 - ✅ Scrapy & Selenium Integration
 - ✅ Gemini LLM Analysis
+- ✅ **Optimized Single-Core Performance** (AsyncIO + Resource Locking)
 - ✅ Code quality: A\*
-
 
 ---
 
@@ -305,6 +304,6 @@ For questions or issues:
 
 ---
 
-**Last Updated:** 2025-12-17T10:54:38 (UTC+7)
-**Version:** 1.1.0  
-**Status:** Alpha ✅
+**Last Updated:** 2025-12-17T20:35:00 (UTC+7)
+**Version:** 0.1.1
+**Status:** Optimized Alpha ✅

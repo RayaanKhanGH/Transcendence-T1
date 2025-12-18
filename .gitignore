@@ -1,6 +1,9 @@
 
+# versions
+.checkpoints/
+
 # metadata
-src/meta/*.json
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
